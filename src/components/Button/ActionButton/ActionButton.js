@@ -4,7 +4,7 @@ import './ActionButton.css';
 function ActionButton(props) {
     return (
         <div>
-            <button>{props.value}</button>
+            <button onClick={props.handleClick}>{props.value}</button>
         </div>
     );
 }
