@@ -15,13 +15,12 @@ class Board extends React.Component {
     addNumber = (number) => {
 
         let fakePrepile = this.state.prePile;
-        console.log(fakePrepile)
-        fakePrepile.push(number);
-        let prePileJoin = fakePrepile.join('')
+
+        let prePileJoin = `${fakePrepile}${number}`
         let result = parseInt(prePileJoin, 10)
 
         this.setState((state, props) => ({
-            prePile: [result],
+            prePile: result,
           }), () => {
             console.log(this.state)
           })
@@ -72,7 +71,7 @@ class Board extends React.Component {
                 fakeState.push(this.state.prePile);
                 this.setState((state, props) => ({
                     pile: fakeState,
-                    prePile: [],
+                    prePile: '',
                 }), () => {
                     console.log(this.state)
                 })
