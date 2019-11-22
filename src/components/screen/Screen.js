@@ -4,7 +4,7 @@ import './Screen.css';
 function Screen(props) {
     return (
         <div>
-            <h3>{ props.val }</h3>
+            <h3>{ props.affiche }</h3>
         </div>
     );
 }

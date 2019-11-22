@@ -30,8 +30,7 @@ class Board extends React.Component {
 
             return (
                 <div>
-                    <Screen></Screen>   
-                    <button onClick={this.addNumber}>Test</button>
+                    <Screen affiche={this.state.prePile}></Screen>   
                     {numbers.map((number, index) => (<NumberButton  key={index} handleClick={() => this.addNumber(number)} value={number} /> )) }
                     { actions.map((action, index) => <ActionButton key={index} value={action} />) }
                 </div>
