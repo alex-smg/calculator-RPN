@@ -1,7 +1,6 @@
 import React from 'react';
 import './Board.css';
-import NumberButton from "../Button/NumberButton/NumberButton";
-import ActionButton from "../Button/ActionButton/ActionButton";
+import Button from "../Button/Button/Button";
 import Screen from "../screen/Screen";
 
 class Board extends React.Component {
@@ -9,7 +8,7 @@ class Board extends React.Component {
         super(props);
         this.state = {
             prePile: null,
-            pile: [10, 5, 6] // TODO: Delete this test value
+            pile: []
         }
     }
 
@@ -93,18 +92,17 @@ class Board extends React.Component {
     }
 
         render() {
-            let numbers = [0, 1, 2, 3, 4, 5, 6 ,7, 8, 9]
-            
-            let actions = ['-', '+', '*', '/']
+            const numbers = [0, 1, 2, 3, 4, 5, 6 ,7, 8, 9]
+            const actions = ['-', '+', '*', '/']
 
             return (
                 <div>
                     <Screen></Screen>   
-                    {numbers.map((number, index) => (<NumberButton  key={index} handleClick={() => this.addNumber(number)} value={number} /> )) }
-                    { actions.map((action, index) => <ActionButton handleClick={() => this.calculAction(action)} key={index} value={action} />) }
-                    <ActionButton handleClick={() => this.enterAction()} value='enter' />
-                    <ActionButton handleClick={() => this.dropItemAction()} value='drop' />
-                    <ActionButton handleClick={() => this.swapItemAction()} value='swap' />
+                    {numbers.map((number, index) => (<Button key={index} handleClick={() => this.addNumber(number)} value={number} /> )) }
+                    { actions.map((action, index) => <Button handleClick={() => this.calculAction(action)} key={index} value={action} />) }
+                    <Button handleClick={() => this.enterAction()} value='enter' />
+                    <Button handleClick={() => this.dropItemAction()} value='drop' />
+                    <Button handleClick={() => this.swapItemAction()} value='swap' />
                 </div>
             );
         }

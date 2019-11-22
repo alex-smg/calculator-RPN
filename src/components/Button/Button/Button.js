@@ -1,7 +1,7 @@
 import React from 'react';
-import './NumberButton.css';
+import './Button.css';
 
-function NumberButton(props) {
+function Button(props) {
     return (
         <div>
             <button onClick={props.handleClick}>{props.value}</button>
@@ -9,4 +9,4 @@ function NumberButton(props) {
     );
 }
 
-export default NumberButton;
+export default Button;
