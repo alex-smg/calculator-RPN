@@ -7,14 +7,21 @@ class Board extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            prePile: null,
+            prePile: [],
             pile: []
         }
     }
 
     addNumber = (number) => {
+
+        let fakePrepile = this.state.prePile;
+        console.log(fakePrepile)
+        fakePrepile.push(number);
+        let prePileJoin = fakePrepile.join('')
+        let result = parseInt(prePileJoin, 10)
+
         this.setState((state, props) => ({
-            prePile: number,
+            prePile: [result],
           }), () => {
             console.log(this.state)
           })
@@ -60,6 +67,19 @@ class Board extends React.Component {
 
     enterAction() {
         // TODO: Add this.state.prePile to this.state.pile and clean this.state.prepile
+        if (this.state.prePile){
+                let fakeState = this.state.pile;
+                fakeState.push(this.state.prePile);
+                this.setState((state, props) => ({
+                    pile: fakeState,
+                    prePile: [],
+                }), () => {
+                    console.log(this.state)
+                })
+
+        } else {
+            alert('La pile est vide')
+        }
     }
 
     dropItemAction () {
@@ -97,7 +117,7 @@ class Board extends React.Component {
 
             return (
                 <div>
-                    <Screen></Screen>   
+                    <Screen affiche={this.state.prePile}></Screen>
                     {numbers.map((number, index) => (<Button key={index} handleClick={() => this.addNumber(number)} value={number} /> )) }
                     { actions.map((action, index) => <Button handleClick={() => this.calculAction(action)} key={index} value={action} />) }
                     <Button handleClick={() => this.enterAction()} value='enter' />
