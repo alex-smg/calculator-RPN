@@ -64,7 +64,16 @@ class Board extends React.Component {
     }
 
     dropItemAction () {
-        // TODO: Drop the last item of this.sate.pile
+        const pile = this.state.pile
+
+        if (pile.length > 0) {
+            pile.pop()
+
+            this.setState( (state, props) => ({
+                    pile: pile
+                })
+            )
+        }
     }
 
     swapItemAction () {
