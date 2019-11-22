@@ -4,7 +4,7 @@ import './NumberButton.css';
 function NumberButton(props) {
     return (
         <div>
-            <button>{props.value}</button>
+            <button onClick={props.handleClick}>{props.value}</button>
         </div>
     );
 }
