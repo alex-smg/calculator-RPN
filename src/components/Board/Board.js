@@ -77,7 +77,19 @@ class Board extends React.Component {
     }
 
     swapItemAction () {
-    //    TODO: Switch the two last item of this.state.pile
+        const pile = this.state.pile
+        const pileLength = pile.length
+
+        if (pileLength - 1 >= 2) {
+            const last = pile[pileLength - 1]
+            pile[pileLength - 1] = pile[pileLength - 2]
+            pile[pileLength - 2] = last
+
+            this.setState( (state, props) => ({
+                    pile: pile
+                })
+            )
+        }
     }
 
         render() {
