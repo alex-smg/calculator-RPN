@@ -9,9 +9,8 @@ class Board extends React.Component {
         super(props);
         this.state = {
             prePile: null,
-            pile: []
+            pile: [10, 5, 6] // TODO: Delete this test value
         }
-        // this.addNumber = this.addNumber.bind(this);
     }
 
     addNumber = (number) => {
@@ -23,10 +22,41 @@ class Board extends React.Component {
         // TODO: Add multiple "number" to do ONE value
     }
 
-    calculAction () {
-        // TODO: execute calcul with 2 last item in this.state.pile (If their is at least 2 item)
-        // TODO: Remove the last 2 items from this.state.pile
-        // TODO: Add the result to this.state.pile
+    calculAction =  (action) => {
+        let result
+
+        const pile = this.state.pile
+        const pileLength = pile.length
+
+        if (pileLength >= 2) {
+
+            const a = pile.pop()
+            const b = pile.pop()
+
+            switch (action) {
+                case '+':
+                    result = b + a
+                    break
+                case '-':
+                    result = b - a
+                    break
+                case '*':
+                    result = b * a
+                    break
+                case '/':
+                    result = b / a
+                    break
+                default:
+                    break
+            }
+
+            pile.push(result)
+
+            this.setState( (state, props) => ({
+                    pile: pile
+                })
+            )
+        }
     }
 
     enterAction() {
@@ -50,7 +80,7 @@ class Board extends React.Component {
                 <div>
                     <Screen></Screen>   
                     {numbers.map((number, index) => (<NumberButton  key={index} handleClick={() => this.addNumber(number)} value={number} /> )) }
-                    { actions.map((action, index) => <ActionButton handleClick={() => this.calculAction()} key={index} value={action} />) }
+                    { actions.map((action, index) => <ActionButton handleClick={() => this.calculAction(action)} key={index} value={action} />) }
                     <ActionButton handleClick={() => this.enterAction()} value='enter' />
                     <ActionButton handleClick={() => this.dropItemAction()} value='drop' />
                     <ActionButton handleClick={() => this.swapItemAction()} value='swap' />
