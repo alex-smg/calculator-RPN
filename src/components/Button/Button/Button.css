@@ -14,14 +14,10 @@
     transition: 0.5s;
     cursor: pointer;
     position: relative;
+    outline: none;
 }
 
 .btn-num:hover button{
     background-color: teal;
     color: #FFFFFF;
-    transform: scale(1.3);
 }
-.btn-num:hover{
-    margin: 30px;    
-}
-    
