@@ -1,0 +1,27 @@
+.btn-num {
+    width: 30%;
+    display: block;
+    margin: 5px 0 5px 0;
+    transition: 0.5s;
+}
+
+.btn-num button{
+    width: 100%;
+    font-size: 2vw;
+    padding: 3% 0 3% 0;
+    background-color: transparent;
+    border-radius: 2em;
+    transition: 0.5s;
+    cursor: pointer;
+    position: relative;
+}
+
+.btn-num:hover button{
+    background-color: teal;
+    color: #FFFFFF;
+    transform: scale(1.3);
+}
+.btn-num:hover{
+    margin: 30px;    
+}
+    

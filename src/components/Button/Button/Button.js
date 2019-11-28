@@ -1,12 +1,12 @@
 import React from 'react';
-import './NumberButton.css';
+import './Button.css';
 
-function NumberButton(props) {
+function Button(props) {
     return (
-        <div>
+        <div className="btn-num">
             <button onClick={props.handleClick}>{props.value}</button>
         </div>
     );
 }
 
-export default NumberButton;
+export default Button;

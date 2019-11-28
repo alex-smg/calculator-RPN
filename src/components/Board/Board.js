@@ -1,7 +1,6 @@
 import React from 'react';
 import './Board.css';
-import NumberButton from "../Button/NumberButton/NumberButton";
-import ActionButton from "../Button/ActionButton/ActionButton";
+import Button from "../Button/Button/Button";
 import Screen from "../screen/Screen";
 
 class Board extends React.Component {
@@ -11,29 +10,58 @@ class Board extends React.Component {
             prePile: [],
             pile: []
         }
-        // this.addNumber = this.addNumber.bind(this);
     }
 
     addNumber = (number) => {
 
         let fakePrepile = this.state.prePile;
-        console.log(fakePrepile)
-        fakePrepile.push(number);
-        let prePileJoin = fakePrepile.join('')
+
+        let prePileJoin = `${fakePrepile}${number}`
         let result = parseInt(prePileJoin, 10)
-        
+
         this.setState((state, props) => ({
-            prePile: [result],
+            prePile: result,
           }), () => {
             console.log(this.state)
           })
         // TODO: Add multiple "number" to do ONE value
     }
 
-    calculAction () {
-        // TODO: execute calcul with 2 last item in this.state.pile (If their is at least 2 item)
-        // TODO: Remove the last 2 items from this.state.pile
-        // TODO: Add the result to this.state.pile
+    calculAction =  (action) => {
+        let result
+
+        const pile = this.state.pile
+        const pileLength = pile.length
+
+        if (pileLength >= 2) {
+
+            const a = pile.pop()
+            const b = pile.pop()
+
+            switch (action) {
+                case '+':
+                    result = b + a
+                    break
+                case '-':
+                    result = b - a
+                    break
+                case '*':
+                    result = b * a
+                    break
+                case '/':
+                    result = b / a
+                    break
+                default:
+                    break
+            }
+
+            pile.push(result)
+
+            this.setState( (state, props) => ({
+                    pile: pile
+                })
+            )
+        }
     }
 
     enterAction() {
@@ -43,39 +71,60 @@ class Board extends React.Component {
                 fakeState.push(this.state.prePile);
                 this.setState((state, props) => ({
                     pile: fakeState,
-                    prePile: [],
+                    prePile: '',
                 }), () => {
                     console.log(this.state)
                 })
-            
+
         } else {
             alert('La pile est vide')
         }
     }
 
     dropItemAction () {
-        // TODO: Drop the last item of this.sate.pile
+        const pile = this.state.pile
+
+        if (pile.length > 0) {
+            pile.pop()
+
+            this.setState( (state, props) => ({
+                    pile: pile
+                })
+            )
+        }
     }
 
     swapItemAction () {
-    //    TODO: Switch the two last item of this.state.pile
+        const pile = this.state.pile
+        const pileLength = pile.length
+
+        if (pileLength - 1 >= 2) {
+            const last = pile[pileLength - 1]
+            pile[pileLength - 1] = pile[pileLength - 2]
+            pile[pileLength - 2] = last
+
+            this.setState( (state, props) => ({
+                    pile: pile
+                })
+            )
+        }
     }
 
         render() {
-            let numbers = [0, 1, 2, 3, 4, 5, 6 ,7, 8, 9]
-            
-            let actions = ['-', '+', '*', '/']
+            const numbers = [0, 1, 2, 3, 4, 5, 6 ,7, 8, 9]
+            const actions = ['-', '+', '*', '/']
 
             return (
                 <div>
-                    <Screen affiche={this.state.prePile} affichePile={this.state.pile}></Screen>   
+                    <Screen affiche={this.state.prePile} affichePile={this.state.pile}></Screen>
                     <div className="clavier">
-                        {numbers.map((number, index) => (<NumberButton  key={index} handleClick={() => this.addNumber(number)} value={number} /> )) }
+                     { numbers.map((number, index) => (<Button key={index} handleClick={() => this.addNumber(number)} value={number} /> )) }
                     </div>
-                    { actions.map((action, index) => <ActionButton handleClick={() => this.calculAction()} key={index} value={action} />) }
-                    <ActionButton handleClick={() => this.enterAction()} value='enter' />
-                    <ActionButton handleClick={() => this.dropItemAction()} value='drop' />
-                    <ActionButton handleClick={() => this.swapItemAction()} value='swap' />
+                    
+                    { actions.map((action, index) => <Button handleClick={() => this.calculAction(action)} key={index} value={action} />) }
+                    <Button handleClick={() => this.enterAction()} value='enter' />
+                    <Button handleClick={() => this.dropItemAction()} value='drop' />
+                    <Button handleClick={() => this.swapItemAction()} value='swap' />
                 </div>
             );
         }
